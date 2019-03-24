@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, redirect
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from csv import DictReader
 
@@ -11,17 +12,20 @@ def index(request):
 
 
 def bus_stations(request):
-    per_page = 10
-    input_file = DictReader(open(BUS_STATION_CSV))
+    read_file_with_station = DictReader(open(BUS_STATION_CSV, encoding='cp1251'))
     stations = []
-    for station in input_file:
+    for station in read_file_with_station:
         stations.append({'Name': station['Name'], 'Street': station['Street'], 'District': station['District']})
 
-    number_of_page = int(request.GET.get('page')) or 1
+    paginator = Paginator(stations, 10)
+    current_page = int(request.GET.get('page', 1))
+    current_stations = paginator.page(current_page)
 
     return render_to_response('index.html', context={
-        'bus_stations': stations[number_of_page: number_of_page + per_page],
-        'current_page': number_of_page,
-        'prev_page_url': None if number_of_page == 1 else f'bus_stations?page={number_of_page - 1}',
-        'next_page_url': f'bus_stations?page={number_of_page + 1}',
+        'bus_stations': current_stations.object_list,
+        'current_page': current_page,
+        'prev_page_url': f'bus_stations?page={current_stations.previous_page_number()}'
+        if current_stations.has_previous() else None,
+        'next_page_url': f'bus_stations?page={current_stations.next_page_number()}'
+        if current_stations.has_next() else None,
     })

@@ -23,13 +23,17 @@ def landing(request):
     # в зависимости от GET параметра ab-test-arg
     # который может принимать значения original и test
     # Так же реализуйте логику подсчета количества показов
-    mode = request.GET.get('ab-test-arg')
-    mode = 'original' if mode is None else mode
+    mode = request.GET.get('ab-test-arg', 'original')
     counter_show[mode] += 1
     if mode == 'test':
         return render_to_response('landing_alternate.html')
 
     return render_to_response('landing.html')
+
+
+def get_conversion(clicks, shows):
+    conversion = 0 if shows == 0 else clicks / shows
+    return conversion
 
 
 def stats(request):
@@ -38,15 +42,9 @@ def stats(request):
     # проверяйте GET параметр marker который может принимать значения test и original
     # Для вывода результат передайте в следующем формате:
     counter_click[request.GET.get('marker')] += 1
-    if counter_show['test'] == 0:
-        test_conversion = 0
-    else:
-        test_conversion = counter_click['test'] / counter_show['test']
 
-    if counter_show['original'] == 0:
-        original_conversion = 0
-    else:
-        original_conversion = counter_click['original'] / counter_show['original']
+    test_conversion = get_conversion(counter_click['test'], counter_show['test'])
+    original_conversion = get_conversion(counter_click['original'], counter_show['original'])
 
     return render_to_response('stats.html', context={
         'test_conversion': test_conversion,
