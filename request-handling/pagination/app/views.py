@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 
 from csv import DictReader
 
-from app.settings import BUS_STATION_CSV
+from django.conf import settings
 
 
 def index(request):
@@ -12,7 +12,7 @@ def index(request):
 
 
 def bus_stations(request):
-    read_file_with_station = list(DictReader(open(BUS_STATION_CSV, encoding='cp1251')))
+    read_file_with_station = list(DictReader(open(settings.BUS_STATION_CSV, encoding='cp1251')))
 
     paginator = Paginator(read_file_with_station, 10)
     current_page = int(request.GET.get('page', 1))
