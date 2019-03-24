@@ -12,12 +12,9 @@ def index(request):
 
 
 def bus_stations(request):
-    read_file_with_station = DictReader(open(BUS_STATION_CSV, encoding='cp1251'))
-    stations = []
-    for station in read_file_with_station:
-        stations.append({'Name': station['Name'], 'Street': station['Street'], 'District': station['District']})
+    read_file_with_station = list(DictReader(open(BUS_STATION_CSV, encoding='cp1251')))
 
-    paginator = Paginator(stations, 10)
+    paginator = Paginator(read_file_with_station, 10)
     current_page = int(request.GET.get('page', 1))
     current_stations = paginator.page(current_page)
 
