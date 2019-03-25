@@ -1,0 +1,21 @@
+{% extends 'app/app_base.html' %}
+{% load static %}
+
+{% block nav_panel %}
+<ul class="right hide-on-med-and-down">
+    <li class="active"><a href="{% url 'examples' %}">Примеры</a></li>
+    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+    <li><a href="{% url 'about' %}">О проекте</a></li>
+</ul>
+{% endblock nav_panel %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <h1 class="col s12">Каталог компьютеров Apple</h1>
+        {% for computer in items %}
+        {% include 'app/includes/computer_card.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

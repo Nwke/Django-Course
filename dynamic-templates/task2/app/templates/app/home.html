@@ -1,0 +1,22 @@
+{% extends 'app/app_base.html' %}
+{% load static %}
+
+{% block title %} Apple home page {% endblock title %}
+
+{% block nav_panel %}
+<ul class="right hide-on-med-and-down">
+    <li><a href="{% url 'examples' %}">Примеры</a></li>
+    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+    <li><a href="{% url 'about' %}">О проекте</a></li>
+</ul>
+{% endblock nav_panel%}
+
+{% block content %}
+
+<div class="row">
+    <div class="col s12">
+        <h1 class="col s12">Компьютеры Apple</h1>
+        <img src='{%  static "steve.jpg" %}' alt="Apple">
+    </div>
+</div>
+{% endblock content%}

@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 
 from csv import DictReader
-
 from django.conf import settings
 
 
