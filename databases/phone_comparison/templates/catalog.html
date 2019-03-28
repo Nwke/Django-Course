@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Сравнение телефонов</h1>
+        {% for phone in samsung_phones %}
+        {% include 'phone_detail.html' %}
+        {% endfor %}
+
+        {% for phone in apple_phones %}
+        {% include 'phone_detail.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

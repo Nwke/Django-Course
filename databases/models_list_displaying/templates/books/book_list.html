@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load costum_filters %}
+
+
+{% block title %}Books catalog{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1><a href="/books">Каталог</a></h1>
+    </div>
+    <div class="row">
+        {% for book in book_list %}
+        <div class="book col-md-4">
+            <a href={{ book.pub_date|convert_date }}><h2>{{ book.name }}</h2></a>
+            <p>Автор: {{ book.author }}</p>
+            <p>Дата публикации: {{ book.pub_date|convert_date }}</p>
+            <p>{{ prev }}</p>
+            <p>{{ next }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <span class="page-links">
+          {% if previous_page %}
+              <a href={{previous_page}}><< {{previous_page}}</a>
+          {% endif %}
+
+          {% if next_page %}
+            <a href={{next_page}}>{{next_page}} >></a>
+          {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

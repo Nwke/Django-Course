@@ -1,0 +1,32 @@
+<table cellspacing="5" cellpadding="10" width="100%">
+    <tr>
+        <th>Model</th>
+        <th>{{phone.name}}</th>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td>{{phone.price}}</td>
+    </tr>
+    <tr>
+        <td>Operation system</td>
+        <td>{{phone.os}}</td>
+    </tr>
+
+    <tr>
+        <td>Battery size</td>
+        <td>{{phone.battery}}</td>
+    </tr>
+    <tr>
+        <td>Dual cam</td>
+        <td>{{phone.dual_camera}}</td>
+    </tr>
+    <tr>
+        <td>FaceID</td>
+
+        <td>{{phone.face_id|default:'-'}}</td>
+    </tr>
+    <tr>
+        <td>Two screens:</td>
+        <td>{{phone.two_screen|default:'-'}}</td>
+    </tr>
+</table>
